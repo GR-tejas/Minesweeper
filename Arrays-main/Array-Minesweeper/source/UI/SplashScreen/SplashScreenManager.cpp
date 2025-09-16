@@ -42,8 +42,7 @@ namespace UI
             game_window->draw(logo_sprite);
         else
         {
-            elapsed_time = 0.0f;
-            /*GameLoop::setGameState(GameState::GAMEPLAY);*/
+            GameLoop::setGameState(GameState::GAMEPLAY);
         }
     }
 }
