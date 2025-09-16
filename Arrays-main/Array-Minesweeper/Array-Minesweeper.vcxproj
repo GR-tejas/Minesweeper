@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\GameLoop\Gameplay\Board.cpp" />
+    <ClCompile Include="source\GameLoop\Gameplay\Cell.cpp" />
     <ClCompile Include="source\GameLoop\Gameplay\GameplayManager.cpp" />
     <ClCompile Include="source\Sound\SoundManager.cpp" />
     <ClCompile Include="source\GameLoop\GameLoop.cpp" />
@@ -142,16 +143,19 @@
     <ClCompile Include="source\GameWindow\GameWindowManager.cpp" />
     <ClCompile Include="source\UI\SplashScreen\SplashScreenManager.cpp" />
     <ClCompile Include="source\Time\TimeManager.cpp" />
+    <ClCompile Include="source\UI\UIElements\Button\Button.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\GameLoop\GameLoop.h" />
     <ClInclude Include="header\Event\EventPollingManager.h" />
     <ClInclude Include="header\GameLoop\Gameplay\Board.h" />
+    <ClInclude Include="header\GameLoop\Gameplay\Cell.h" />
     <ClInclude Include="header\GameLoop\Gameplay\GameplayManager.h" />
     <ClInclude Include="header\GameWindow\GameWindowManager.h" />
     <ClInclude Include="header\UI\SplashScreen\SplashScreenManager.h" />
     <ClInclude Include="header\Time\TimeManager.h" />
     <ClInclude Include="header\Sound\SoundManager.h" />
+    <ClInclude Include="header\UI\UIElements\Button\Button.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

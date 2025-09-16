@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "../../header/GameLoop/Gameplay/Cell.h"
+#include "../../header/Event/EventPollingManager.h"
 
 namespace Gameplay
 {
@@ -9,6 +11,7 @@ namespace Gameplay
     {
     private:
 
+        Cell* cell;
         const float boardWidth = 866.f;
         const float boardHeight = 1080.f;
         const float boardPosition = 530.f;
@@ -19,6 +22,7 @@ namespace Gameplay
 
         void initializeBoardImage();
         void initialize();
+        void createBoard();
 
     public:
 
