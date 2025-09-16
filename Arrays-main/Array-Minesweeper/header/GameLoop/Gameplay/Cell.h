@@ -35,6 +35,9 @@ namespace Gameplay
         CellState current_cell_state;
         CellType cell_type;
 
+        const float cell_top_offset = 274.f;
+        const float cell_left_offset = 583.f;
+
         sf::Vector2i position;
 
         const int tile_size = 128;
@@ -44,6 +47,7 @@ namespace Gameplay
         Button* cell_button;
 
         void initialize(float width, float height, sf::Vector2i position);
+        sf::Vector2f getCellScreenPosition() const;
 
     public:
         Cell(float width, float height, sf::Vector2i position);
