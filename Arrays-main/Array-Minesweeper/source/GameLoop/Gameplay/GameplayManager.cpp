@@ -13,9 +13,9 @@ namespace Gameplay
         initializeVariables();
     }
 
-    void GameplayManager::initializeVariables()
-    {
+    void GameplayManager::initializeVariables() {
         board = new Board(this);
+        remaining_time = max_level_duration;  // Start with full time
     }
 
     void GameplayManager::initializeBackgroundImage() {
@@ -26,9 +26,30 @@ namespace Gameplay
         background_sprite.setColor(sf::Color(255, 255, 255, background_alpha));
     }
 
-    void GameplayManager::update(EventPollingManager& eventManager, sf::RenderWindow& window)
+    void GameplayManager::update(EventPollingManager& eventManager, sf::RenderWindow& window) {
+        if (!hasGameEnded())
+            handleGameplay(eventManager, window);
+    }
+    bool GameplayManager::hasGameEnded()
     {
-        board->update(eventManager, window);
+        return false;
+    }
+
+    void GameplayManager::handleGameplay(EventPollingManager& eventManager, sf::RenderWindow& window) {
+        updateRemainingTime();              // Update timer first
+        board->update(eventManager, window); // Then update board
+    }
+
+    void GameplayManager::updateRemainingTime() {
+        remaining_time -= TimeManager::getDeltaTime();  // Decrease time
+        processTimeOver();  // Check if time's up
+    }
+
+    void GameplayManager::processTimeOver() {
+        if (remaining_time <= 0) {
+            remaining_time = 0; // Don't go negative
+            game_result = GameResult::LOST; // Game over!
+        }
     }
 
     void GameplayManager::setGameResult(GameResult gameResult)
