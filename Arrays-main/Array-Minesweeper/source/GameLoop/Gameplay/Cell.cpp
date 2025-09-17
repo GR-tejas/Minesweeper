@@ -85,6 +85,15 @@ namespace Gameplay
 			cell_button->render(window);
 	}
 
+	void Cell::toggleFlag() {
+		if (current_cell_state == CellState::HIDDEN) {
+			setCellState(CellState::FLAGGED);
+		}
+		else if (current_cell_state == CellState::FLAGGED) {
+			setCellState(CellState::HIDDEN);
+		}
+	}
+
 	CellState Cell::getCellState() const { return current_cell_state; }
 
 	void Cell::setCellState(CellState state) { current_cell_state = state; }

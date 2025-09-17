@@ -24,6 +24,8 @@ namespace Gameplay
         const float horizontalCellPadding = 115.f;
         const float verticalCellPadding = 329.f;
 
+        int flaggedCells;
+
         static const int minesCount = 9;
 
         const std::string boardTexturePath = "assets/textures/board.png";
@@ -42,6 +44,8 @@ namespace Gameplay
 
         float getCellWidthInBoard() const;
         float getCellHeightInBoard() const;
+
+        void toggleFlag(sf::Vector2i cell_position);
 
         void populateBoard();
         void populateMines();
