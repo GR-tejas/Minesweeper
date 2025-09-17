@@ -43,11 +43,10 @@ namespace Gameplay
         const int tile_size = 128;
         const int slice_count = 12;
         const std::string cell_texture_path = "assets/textures/cells.jpeg";
-
+        sf::Vector2f getCellScreenPosition(float width, float height) const; //update the signature
         Button* cell_button;
 
         void initialize(float width, float height, sf::Vector2i position);
-        sf::Vector2f getCellScreenPosition() const;
 
     public:
         Cell(float width, float height, sf::Vector2i position);

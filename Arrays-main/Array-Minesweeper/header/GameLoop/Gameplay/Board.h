@@ -11,7 +11,7 @@ namespace Gameplay
     {
     private:
 
-        Cell* cell;
+        
         const float boardWidth = 866.f;
         const float boardHeight = 1080.f;
         const float boardPosition = 530.f;
@@ -25,6 +25,8 @@ namespace Gameplay
         const std::string boardTexturePath = "assets/textures/board.png";
         sf::Texture boardTexture;
         sf::Sprite boardSprite;
+
+        Cell* cell[numberOfColumns];
 
         void initializeBoardImage();
         void initialize();
