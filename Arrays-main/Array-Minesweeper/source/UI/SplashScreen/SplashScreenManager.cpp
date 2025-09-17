@@ -41,6 +41,9 @@ namespace UI
         if (elapsed_time < logo_animation_duration)
             game_window->draw(logo_sprite);
         else
-            GameLoop::setGameState(GameState::GAMEPLAY); //Change the game state
+        {
+            elapsed_time = 0.0f;
+            GameLoop::setGameState(GameState::MAIN_MENU); // transition to Main Menu state
+        }
     }
 }

@@ -142,6 +142,7 @@
     <ClCompile Include="source\Event\EventPollingManager.cpp" />
     <ClCompile Include="source\GameWindow\GameWindowManager.cpp" />
     <ClCompile Include="source\UI\GameplayUI\GameplayUI.cpp" />
+    <ClCompile Include="source\UI\MainMenu\MainMenuManager.cpp" />
     <ClCompile Include="source\UI\SplashScreen\SplashScreenManager.cpp" />
     <ClCompile Include="source\Time\TimeManager.cpp" />
     <ClCompile Include="source\UI\UIElements\Button\Button.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="header\GameLoop\Gameplay\GameplayManager.h" />
     <ClInclude Include="header\GameWindow\GameWindowManager.h" />
     <ClInclude Include="header\UI\GameplayUI\GameplayUI.h" />
+    <ClInclude Include="header\UI\MainMenu\MainMenuManager.h" />
     <ClInclude Include="header\UI\SplashScreen\SplashScreenManager.h" />
     <ClInclude Include="header\Time\TimeManager.h" />
     <ClInclude Include="header\Sound\SoundManager.h" />

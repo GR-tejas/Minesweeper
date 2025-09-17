@@ -2,6 +2,7 @@
 #include "../../header/GameWindow/GameWindowManager.h"
 #include "../../header/Event/EventPollingManager.h"
 #include "../../header/UI/SplashScreen/SplashScreenManager.h"
+#include "../../header/UI/MainMenu/MainMenuManager.h"
 #include "../../header/GameLoop/Gameplay/GameplayManager.h"
 
 using namespace GameWindow;
@@ -22,6 +23,7 @@ private:
     GameWindowManager* window_manager;
     EventPollingManager* event_manager;
     GameplayManager* gameplay_manager;
+    MainMenuManager* main_menu_manager;
 
     sf::RenderWindow* game_window;
     SplashScreenManager* splash_screen_manager;
