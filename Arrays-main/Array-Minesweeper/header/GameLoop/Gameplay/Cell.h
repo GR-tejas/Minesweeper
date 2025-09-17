@@ -66,6 +66,7 @@ namespace Gameplay
         bool canOpenCell() const;
         void open();
         void toggleFlag();
+        void reset();
 
         void render(sf::RenderWindow& window);
     };

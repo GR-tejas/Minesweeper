@@ -99,6 +99,13 @@ namespace Gameplay
         }
     }
 
+    void GameplayManager::restartGame() {
+        game_result = GameResult::NONE;  // Clear previous result
+        board->reset();  // Reset the board
+        Time::TimeManager::initialize();  // Reset timer
+        remaining_time = max_level_duration;  // Full time again
+    }
+
     void GameplayManager::setGameResult(GameResult gameResult)
     {
         std::cout << "before setting", game_result, "\n";

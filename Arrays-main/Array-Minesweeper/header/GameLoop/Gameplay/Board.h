@@ -80,6 +80,7 @@ namespace Gameplay
         void revealAllMines();
         BoardState getBoardState() const;
         void setBoardState(BoardState state);
+        void reset();
 
         void render(sf::RenderWindow& window);
     };

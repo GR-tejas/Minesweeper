@@ -57,6 +57,7 @@ namespace Gameplay
         ~GameplayManager() = default;
         void update(EventPollingManager& eventManager, sf::RenderWindow& window);
         void setGameResult(GameResult gameResult);
+        void restartGame();
 
         void render(sf::RenderWindow& window);
     };
