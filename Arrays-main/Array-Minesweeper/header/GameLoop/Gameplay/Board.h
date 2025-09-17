@@ -46,6 +46,8 @@ namespace Gameplay
         void populateBoard();
         void populateMines();
 
+        void openCell(sf::Vector2i cell_position);
+
         void initializeVariables();
 
     public:

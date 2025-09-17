@@ -63,6 +63,8 @@ namespace Gameplay
         void setCellType(CellType type);
         void setCellTexture();
         void update(Event::EventPollingManager& eventManager, sf::RenderWindow& window);
+        bool canOpenCell() const;
+        void open();
 
         void render(sf::RenderWindow& window);
     };

@@ -28,6 +28,16 @@ namespace Gameplay
 			});
 	}
 
+	void Cell::open() 
+	{
+		setCellState(CellState::OPEN); // Change state to OPEN
+	}
+
+	bool Cell::canOpenCell() const 
+	{ 
+		return current_cell_state == CellState::HIDDEN; 
+	}
+
 	void Cell::cellButtonCallback(MouseButtonType button_type) 
 	{
 		board->onCellButtonClicked(getCellPosition(), button_type);
