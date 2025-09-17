@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <random>
 #include "../../header/GameLoop/Gameplay/Cell.h"
 #include "../../header/Event/EventPollingManager.h"
 
@@ -10,7 +11,8 @@ namespace Gameplay
     class Board
     {
     private:
-
+        std::default_random_engine randomEngine;
+        std::random_device randomDevice;
         
         const float boardWidth = 866.f;
         const float boardHeight = 1080.f;
@@ -21,6 +23,8 @@ namespace Gameplay
 
         const float horizontalCellPadding = 115.f;
         const float verticalCellPadding = 329.f;
+
+        static const int minesCount = 9;
 
         const std::string boardTexturePath = "assets/textures/board.png";
         sf::Texture boardTexture;
@@ -34,6 +38,11 @@ namespace Gameplay
 
         float getCellWidthInBoard() const;
         float getCellHeightInBoard() const;
+
+        void populateBoard();
+        void populateMines();
+
+        void initializeVariables();
 
     public:
 

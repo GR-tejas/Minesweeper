@@ -7,11 +7,12 @@ namespace Gameplay
 		initialize(width, height, position);
 	}
 
-	void Cell::initialize(float width, float height, sf::Vector2i position)
+	void Cell::initialize(float width, float height, sf::Vector2i position) 
 	{
 		this->position = position;
 		sf::Vector2f cellScreenPosition = getCellScreenPosition(width, height);
 		cell_button = new Button(cell_texture_path, cellScreenPosition, width * slice_count, height);
+		current_cell_state = CellState::OPEN; // Temporarily set to OPEN for visualization
 	}
 
 	sf::Vector2f Cell::getCellScreenPosition(float width, float height) const
