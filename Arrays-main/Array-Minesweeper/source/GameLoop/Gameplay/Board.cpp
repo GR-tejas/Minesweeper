@@ -1,16 +1,17 @@
 #include "../../header/GameLoop/Gameplay/Board.h"
+#include "../../header/GameLoop/Gameplay/GameplayManager.h"
 
 namespace Gameplay
 {
-	Board::Board()
-	{
-		initialize();
-	}
-
-    void Board::initialize()
+    Board::Board(GameplayManager* gameplayManager)
     {
+        initialize(gameplayManager);
+    }
+
+    void Board::initialize(GameplayManager* gameplayManager)
+    {
+        initializeVariables(gameplayManager);
         initializeBoardImage();
-        initializeVariables();
         createBoard();
         populateBoard();
     }
@@ -73,9 +74,8 @@ namespace Gameplay
         case CellType::EMPTY:
             processEmptyCell(cell_position);
             break;
-        case CellType::MINE:
-            cell[cell_position.x][cell_position.y]->open();
-            //Handling Mine cell in next lesson
+        case CellType::MINE: // Handle mine cells
+            processMineCell(cell_position);
             break;
         default:
             cell[cell_position.x][cell_position.y]->open();
@@ -114,8 +114,26 @@ namespace Gameplay
         }
     }
 
-    void Board::initializeVariables()
+    void Board::processMineCell(sf::Vector2i cell_position) 
     {
+        gameplay_manager->setGameResult(GameResult::LOST);  // Game Over!
+        Sound::SoundManager::PlaySound(Sound::SoundType::EXPLOSION);
+        revealAllMines();                                   // Show all mines
+    }
+
+    void Board::revealAllMines() 
+    {
+        for (int row = 0; row < numberOfRows; row++) 
+            for (int col = 0; col < numberOfColumns; col++)
+                if (cell[row][col]->getCellType() == CellType::MINE)
+                {
+                    cell[row][col]->setCellState(CellState::OPEN);  // Show the mines
+                }
+    }
+
+    void Board::initializeVariables(GameplayManager* gameplay_manager)
+    {
+        this->gameplay_manager = gameplay_manager;
         randomEngine.seed(randomDevice()); // init random engine
         flaggedCells = 0;                   // IMPORTANT: initialize counters
     }
