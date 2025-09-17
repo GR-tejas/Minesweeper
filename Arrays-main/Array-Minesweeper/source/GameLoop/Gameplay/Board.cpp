@@ -15,18 +15,29 @@ namespace Gameplay
         populateBoard();
     }
 
+    void Board::update(Event::EventPollingManager& eventManager, sf::RenderWindow& window)
+    {
+        for (int row = 0; row < numberOfRows; ++row)
+            for (int col = 0; col < numberOfColumns; ++col)
+                cell[row][col]->update(eventManager, window);
+    }
+
     void Board::createBoard()
     {
         float cell_width = getCellWidthInBoard();
         float cell_height = getCellHeightInBoard();
 
-        //create cells for the cell[][] array
         for (int row = 0; row < numberOfRows; ++row)
-        {
             for (int col = 0; col < numberOfColumns; ++col)
-            {
-                cell[row][col] = new Cell(cell_width, cell_height, sf::Vector2i(row, col));
-            }
+                cell[row][col] = new Cell(cell_width, cell_height, sf::Vector2i(row, col), this); //pass the board as a parameter
+    }
+
+    void Board::onCellButtonClicked(sf::Vector2i cell_position, MouseButtonType mouse_button_type) {
+        if (mouse_button_type == MouseButtonType::LEFT_MOUSE_BUTTON) {
+            // Left-click logic will be added in the next lesson
+        }
+        else if (mouse_button_type == MouseButtonType::RIGHT_MOUSE_BUTTON) {
+            // Right-click logic will be added in the next lesson
         }
     }
 

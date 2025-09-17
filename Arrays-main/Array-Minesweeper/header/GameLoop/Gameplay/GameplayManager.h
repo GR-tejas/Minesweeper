@@ -1,6 +1,9 @@
 #pragma once
 #include "../../header/GameLoop/Gameplay/Board.h"
+#include "../../header/Event/EventPollingManager.h"
 #include <SFML/Graphics.hpp>
+
+using namespace Event;
 
 namespace Gameplay
 {
@@ -22,6 +25,7 @@ namespace Gameplay
     public:
         GameplayManager();
         ~GameplayManager() = default;
+        void update(EventPollingManager& eventManager, sf::RenderWindow& window);
 
         void render(sf::RenderWindow& window);
     };
