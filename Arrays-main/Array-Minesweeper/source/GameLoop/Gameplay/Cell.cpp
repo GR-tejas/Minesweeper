@@ -12,9 +12,13 @@ namespace Gameplay
 	{
 		this->position = position;
 		this->board = board;
+
+		// initialize state/type to safe defaults
+		current_cell_state = CellState::HIDDEN;
+		cell_type = CellType::EMPTY;
+
 		sf::Vector2f cellScreenPosition = getCellScreenPosition(width, height);
 		cell_button = new Button(cell_texture_path, cellScreenPosition, width * slice_count, height);
-		current_cell_state = CellState::HIDDEN;
 
 		registerCellButtonCallback(); //register a method
 	}
@@ -85,7 +89,8 @@ namespace Gameplay
 			cell_button->render(window);
 	}
 
-	void Cell::toggleFlag() {
+	void Gameplay::Cell::toggleFlag()
+	{
 		if (current_cell_state == CellState::HIDDEN) {
 			setCellState(CellState::FLAGGED);
 		}
