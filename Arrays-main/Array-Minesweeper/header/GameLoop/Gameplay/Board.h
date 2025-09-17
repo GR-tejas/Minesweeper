@@ -32,6 +32,10 @@ namespace Gameplay
 
         Cell* cell[numberOfRows][numberOfColumns];
 
+        int countMinesAround(sf::Vector2i cell_position);
+        void populateCells();
+        bool isValidCellPosition(sf::Vector2i cell_position);
+
         void initializeBoardImage();
         void initialize();
         void createBoard();
