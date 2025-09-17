@@ -72,6 +72,8 @@ namespace Gameplay
     public:
 
         Board(GameplayManager* gameplayManager);
+        bool areAllCellsOpen();
+        void flagAllMines();
         void update(Event::EventPollingManager& eventManager, sf::RenderWindow& window);
         void onCellButtonClicked(sf::Vector2i cell_position, MouseButtonType mouse_button_type);
         void revealAllMines();

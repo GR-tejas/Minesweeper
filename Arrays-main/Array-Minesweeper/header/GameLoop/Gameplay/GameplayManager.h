@@ -25,6 +25,10 @@ namespace Gameplay
         void initializeVariables();
         void initializeBackgroundImage();
         bool hasGameEnded();
+        void checkGameWin();
+        void processGameResult();
+        void gameWon();
+        void gameLost();
 
         void updateRemainingTime();
         void processTimeOver();

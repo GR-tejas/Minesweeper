@@ -1,6 +1,8 @@
 #include "../../header/GameLoop/Gameplay/Board.h"
 #include "../../header/GameLoop/Gameplay/GameplayManager.h"
 
+using namespace std;
+
 namespace Gameplay
 {
     Board::Board(GameplayManager* gameplayManager)
@@ -44,7 +46,8 @@ namespace Gameplay
         }
     }
 
-    void Board::toggleFlag(sf::Vector2i cell_position) {
+    void Board::toggleFlag(sf::Vector2i cell_position) 
+    {
         // get previous state
         CellState prev = cell[cell_position.x][cell_position.y]->getCellState();
 
@@ -52,17 +55,20 @@ namespace Gameplay
         cell[cell_position.x][cell_position.y]->toggleFlag();
 
         CellState now = cell[cell_position.x][cell_position.y]->getCellState();
-        if (prev != now) {
+        if (prev != now) 
+        {
             if (now == CellState::FLAGGED) ++flaggedCells;
             else if (prev == CellState::FLAGGED && now == CellState::HIDDEN) --flaggedCells;
         }
     }
 
-    void Board::openCell(sf::Vector2i cell_position) {
+    void Board::openCell(sf::Vector2i cell_position) 
+    {
         if (!cell[cell_position.x][cell_position.y]->canOpenCell())
             return;
 
-        if (boardState == BoardState::FIRST_CELL) {
+        if (boardState == BoardState::FIRST_CELL) 
+        {
             populateBoard(cell_position);    // Place mines after first click
             boardState = BoardState::PLAYING; // Now we can play normally
         }
@@ -70,8 +76,10 @@ namespace Gameplay
         processCellType(cell_position);
     }
 
-    void Board::processCellType(sf::Vector2i cell_position) {
-        switch (cell[cell_position.x][cell_position.y]->getCellType()) {
+    void Board::processCellType(sf::Vector2i cell_position) 
+    {
+        switch (cell[cell_position.x][cell_position.y]->getCellType()) 
+        {
         case CellType::EMPTY:
             processEmptyCell(cell_position);
             break;
@@ -84,31 +92,37 @@ namespace Gameplay
         }
     }
 
-    void Board::processEmptyCell(sf::Vector2i cell_position) {
+    void Board::processEmptyCell(sf::Vector2i cell_position) 
+    {
         // First, open the current cell so neighbors won't re-open it and cause cycles.
         cell[cell_position.x][cell_position.y]->open();
 
         // Check all 8 neighbors
-        for (int a = -1; a <= 1; ++a) {
-            for (int b = -1; b <= 1; ++b) {
+        for (int a = -1; a <= 1; ++a) 
+        {
+            for (int b = -1; b <= 1; ++b) 
+            {
                 // Skip the current cell
                 if (a == 0 && b == 0) continue;
 
                 //Store neighbor cells position
                 sf::Vector2i next_cell_position(cell_position.x + a, cell_position.y + b);
 
-                if (!isValidCellPosition(next_cell_position)) {
+                if (!isValidCellPosition(next_cell_position)) 
+                {
                     continue;  // Skip invalid positions
                 }
 
                 // If neighbor is flagged, unflag it (if that's intended behavior)
                 CellState next_cell_state = cell[next_cell_position.x][next_cell_position.y]->getCellState();
-                if (next_cell_state == CellState::FLAGGED) {
+                if (next_cell_state == CellState::FLAGGED) 
+                {
                     toggleFlag(next_cell_position);
                 }
 
                 // Open neighbor cell if allowed
-                if (cell[next_cell_position.x][next_cell_position.y]->canOpenCell()) {
+                if (cell[next_cell_position.x][next_cell_position.y]->canOpenCell()) 
+                {
                     openCell(next_cell_position);
                 }
             }
@@ -117,9 +131,8 @@ namespace Gameplay
 
     void Board::processMineCell(sf::Vector2i cell_position) 
     {
-        gameplay_manager->setGameResult(GameResult::LOST);  // Game Over!
-        Sound::SoundManager::PlaySound(Sound::SoundType::EXPLOSION);
-        revealAllMines();                                   // Show all mines
+        cout << "Mine Clicked!\n";
+        gameplay_manager->setGameResult(GameResult::LOST); // Game Over!
     }
 
     void Board::revealAllMines() 
@@ -146,6 +159,17 @@ namespace Gameplay
         populateCells();
     }
 
+    void Board::flagAllMines() {
+        for (int row = 0; row < numberOfRows; ++row) {
+            for (int col = 0; col < numberOfColumns; ++col) {
+                if (cell[row][col]->getCellType() == CellType::MINE &&
+                    cell[row][col]->getCellState() != CellState::FLAGGED) {
+                    cell[row][col]->setCellState(CellState::FLAGGED);
+                }
+            }
+        }
+    }
+
     void Board::populateCells()
     {
         for (int row = 0; row < numberOfRows; ++row)
@@ -155,6 +179,22 @@ namespace Gameplay
                     int mines_around = countMinesAround(sf::Vector2i(row, col));
                     cell[row][col]->setCellType(static_cast<CellType>(mines_around));
                 }
+    }
+
+    bool Board::areAllCellsOpen() {
+        int total_cells = numberOfRows * numberOfColumns;
+        int open_cells = 0;
+
+        for (int row = 0; row < numberOfRows; ++row) {
+            for (int col = 0; col < numberOfColumns; ++col) {
+                if (cell[row][col]->getCellState() == CellState::OPEN &&
+                    cell[row][col]->getCellType() != CellType::MINE) {
+                    open_cells++;
+                }
+            }
+        }
+
+        return open_cells == (total_cells - minesCount);
     }
 
     void Board::populateMines(sf::Vector2i first_cell_position) {

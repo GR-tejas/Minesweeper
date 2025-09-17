@@ -29,15 +29,49 @@ namespace Gameplay
     void GameplayManager::update(EventPollingManager& eventManager, sf::RenderWindow& window) {
         if (!hasGameEnded())
             handleGameplay(eventManager, window);
+        else if (board->getBoardState() != BoardState::COMPLETED)
+            processGameResult();  // Handle win/loss
     }
     bool GameplayManager::hasGameEnded()
     {
-        return false;
+        return game_result != GameResult::NONE;
     }
 
     void GameplayManager::handleGameplay(EventPollingManager& eventManager, sf::RenderWindow& window) {
-        updateRemainingTime();              // Update timer first
-        board->update(eventManager, window); // Then update board
+        updateRemainingTime();
+        board->update(eventManager, window);
+        checkGameWin();  // See if player has won
+    }
+
+    void GameplayManager::checkGameWin() {
+        if (board->areAllCellsOpen()) {
+            game_result = GameResult::WON;  // Victory!
+        }
+    }
+
+    void GameplayManager::processGameResult() {
+        switch (game_result) {
+        case GameResult::WON:
+            gameWon();
+            break;
+        case GameResult::LOST:
+            gameLost();
+            break;
+        default:
+            break;
+        }
+    }
+
+    void GameplayManager::gameLost() {
+        Sound::SoundManager::PlaySound(Sound::SoundType::EXPLOSION);  // Boom!
+        board->setBoardState(BoardState::COMPLETED);  // Game over
+        board->revealAllMines();  // Show where the mines were
+    }
+
+    void GameplayManager::gameWon() {
+        Sound::SoundManager::PlaySound(Sound::SoundType::GAME_WON);  // Play victory sound
+        board->flagAllMines();  // Show all mines
+        board->setBoardState(BoardState::COMPLETED);  // Stop the game
     }
 
     void GameplayManager::updateRemainingTime() {
@@ -54,7 +88,9 @@ namespace Gameplay
 
     void GameplayManager::setGameResult(GameResult gameResult)
     {
+        std::cout << "before setting", game_result, "\n";
         this->game_result = gameResult;
+        std::cout << "after setting", game_result, "\n";
     }
 
     void GameplayManager::render(sf::RenderWindow& window)
