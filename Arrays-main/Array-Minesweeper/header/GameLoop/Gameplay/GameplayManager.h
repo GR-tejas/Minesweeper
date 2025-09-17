@@ -2,13 +2,17 @@
 #include "../../header/GameLoop/Gameplay/Board.h"
 #include "../../header/Event/EventPollingManager.h"
 #include "../../../header/Time/TimeManager.h"
+#include "../../header/UI/GameplayUI/GameplayUI.h"
 #include <SFML/Graphics.hpp>
 
-using namespace Event;
-using namespace Time;
+
 
 namespace Gameplay
 {
+    using namespace UI;
+    using namespace Event;
+    using namespace Time;
+
     enum class GameResult
     {
         NONE,
@@ -20,6 +24,7 @@ namespace Gameplay
     {
     private:
         Board* board;
+        GameplayUI* gameplay_ui;
 
         void initialize();
         void initializeVariables();
@@ -29,6 +34,7 @@ namespace Gameplay
         void processGameResult();
         void gameWon();
         void gameLost();
+        int getRemainingMinesCount() const;
 
         void updateRemainingTime();
         void processTimeOver();

@@ -48,6 +48,9 @@
     <ClCompile Include="source\GameLoop\Gameplay\Cell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\UI\GameplayUI\GameplayUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\Event\EventPollingManager.h">
@@ -78,6 +81,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\GameLoop\Gameplay\Cell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UI\GameplayUI\GameplayUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

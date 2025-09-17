@@ -281,6 +281,10 @@ namespace Gameplay
         boardState = state;
     }
 
+    int Board::getRemainingMinesCount() const {
+        return minesCount - flaggedCells;  // Unflagged mines remaining
+    }
+
     void Board::render(sf::RenderWindow& window)
     {
         window.draw(boardSprite);

@@ -13,9 +13,12 @@ namespace Gameplay
         initializeVariables();
     }
 
-    void GameplayManager::initializeVariables() {
+    void GameplayManager::initializeVariables()
+    {
         board = new Board(this);
-        remaining_time = max_level_duration;  // Start with full time
+        gameplay_ui = new GameplayUI(this); //initialize gameplay UI
+
+        remaining_time = max_level_duration;
     }
 
     void GameplayManager::initializeBackgroundImage() {
@@ -30,11 +33,21 @@ namespace Gameplay
         if (!hasGameEnded())
             handleGameplay(eventManager, window);
         else if (board->getBoardState() != BoardState::COMPLETED)
-            processGameResult();  // Handle win/loss
+            processGameResult();
+
+        //update the UI
+        gameplay_ui->update(getRemainingMinesCount(),
+            static_cast<int>(remaining_time),
+            eventManager, window);
     }
+
     bool GameplayManager::hasGameEnded()
     {
         return game_result != GameResult::NONE;
+    }
+
+    int GameplayManager::getRemainingMinesCount() const {
+        return board->getRemainingMinesCount();
     }
 
     void GameplayManager::handleGameplay(EventPollingManager& eventManager, sf::RenderWindow& window) {
@@ -97,5 +110,8 @@ namespace Gameplay
     {
         window.draw(background_sprite);
         board->render(window);
+
+        // render UI
+        gameplay_ui->render(window);
     }
 }
