@@ -43,7 +43,7 @@ namespace UI
         else
         {
             elapsed_time = 0.0f;
-            /*GameLoop::setGameState(GameState::GAMEPLAY);*/
+            GameLoop::setGameState(GameState::MAIN_MENU); // transition to Main Menu state
         }
     }
 }
